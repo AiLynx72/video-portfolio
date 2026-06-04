@@ -2741,9 +2741,6 @@ section {
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-content { gap: 40px; }
   .about-content { gap: 50px; }
-}
-
-@media (max-width: 768px) {
   :root { --nav-height: 62px; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
 
@@ -2799,20 +2796,22 @@ section {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
   }
 
   .hero-image-container {
-    width: 280px;
-    height: 340px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50% !important;
   }
 
   .image-glow {
-    width: 310px;
-    height: 380px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50% !important;
   }
 
   .about-content {
@@ -3111,7 +3110,7 @@ section {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .back-to-top { bottom: 20px; right: 20px; width: 42px; height: 42px; }
 }
 
