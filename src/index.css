@@ -2777,6 +2777,13 @@ section {
   .theme-toggle { display: flex; }
   .hamburger { display: flex; }
 
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--nav-height) + 20px);
+    padding-bottom: 40px;
+    justify-content: flex-start;
+  }
+
   .hero-content {
     display: flex;
     flex-direction: column;
