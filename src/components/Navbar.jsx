@@ -109,6 +109,15 @@ const Navbar = () => {
             </a>
           </li>
         ))}
+        <li className="mobile-only-hire">
+          <a
+            href="#contact"
+            className="btn-hire btn-hire-mobile"
+            onClick={(e) => handleNavClick(e, '#contact')}
+          >
+            Hire Me
+          </a>
+        </li>
       </ul>
 
       {/* Theme Toggle */}
