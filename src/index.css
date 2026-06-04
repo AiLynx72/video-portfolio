@@ -2774,7 +2774,7 @@ section {
   .nav-link { padding: 12px 20px; border-radius: var(--radius-sm); width: 100%; }
 
   .btn-hire { display: none; }
-  .theme-toggle { display: flex; }
+  .theme-toggle { display: flex; margin-left: auto; }
   .hamburger { display: flex; }
 
   .hero {
