@@ -91,64 +91,68 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`} id="navbar">
-      <a href="#home" onClick={(e) => handleNavClick(e, '#home')} style={{ textDecoration: 'none' }}>
-        <DevLogo />
-      </a>
+    <nav className={`navbar${scrolled ? ' scrolled' : ''}${menuOpen ? ' menu-open' : ''}`} id="navbar">
+      <div className="nav-container">
+        <a href="#home" onClick={(e) => handleNavClick(e, '#home')} style={{ textDecoration: 'none' }}>
+          <DevLogo />
+        </a>
 
-      <ul className={`nav-links${menuOpen ? ' open' : ''}`} id="navLinks">
-        {navItems.map(({ href, label }) => (
-          <li key={href}>
+        <ul className={`nav-links${menuOpen ? ' open' : ''}`} id="navLinks">
+          {navItems.map(({ href, label }) => (
+            <li key={href}>
+              <a
+                href={href}
+                className={`nav-link${activeSection === href.slice(1) ? ' active' : ''}`}
+                id={`nav-${href.slice(1)}`}
+                onClick={(e) => handleNavClick(e, href)}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+          <li className="mobile-only-hire">
             <a
-              href={href}
-              className={`nav-link${activeSection === href.slice(1) ? ' active' : ''}`}
-              id={`nav-${href.slice(1)}`}
-              onClick={(e) => handleNavClick(e, href)}
+              href="#contact"
+              className="btn-hire btn-hire-mobile"
+              onClick={(e) => handleNavClick(e, '#contact')}
             >
-              {label}
+              Hire Me
             </a>
           </li>
-        ))}
-        <li className="mobile-only-hire">
+        </ul>
+
+        <div className="nav-actions">
+          {/* Theme Toggle */}
+          <button
+            className={`theme-toggle${rotating ? ' rotating' : ''}`}
+            id="themeToggle"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={handleThemeToggle}
+          >
+            {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
+          </button>
+
           <a
             href="#contact"
-            className="btn-hire btn-hire-mobile"
+            className="btn-hire"
+            id="btn-hire-nav"
             onClick={(e) => handleNavClick(e, '#contact')}
           >
             Hire Me
           </a>
-        </li>
-      </ul>
 
-      {/* Theme Toggle */}
-      <button
-        className={`theme-toggle${rotating ? ' rotating' : ''}`}
-        id="themeToggle"
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        onClick={handleThemeToggle}
-      >
-        {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
-      </button>
-
-      <a
-        href="#contact"
-        className="btn-hire"
-        id="btn-hire-nav"
-        onClick={(e) => handleNavClick(e, '#contact')}
-      >
-        Hire Me
-      </a>
-
-      <button
-        className="hamburger"
-        id="hamburger"
-        aria-label="Toggle menu"
-        onClick={() => setMenuOpen(prev => !prev)}
-      >
-        <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '' }} />
-        <span style={{ opacity: menuOpen ? '0' : '1' }} />
-        <span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -6px)' : '' }} />
-      </button>
+          <button
+            className="hamburger"
+            id="hamburger"
+            aria-label="Toggle menu"
+            onClick={() => setMenuOpen(prev => !prev)}
+          >
+            <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '' }} />
+            <span style={{ opacity: menuOpen ? '0' : '1' }} />
+            <span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -6px)' : '' }} />
+          </button>
+        </div>
+      </div>
     </nav>
   );
 };
