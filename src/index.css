@@ -276,7 +276,7 @@ ul { list-style: none; }
   flex-shrink: 0;
   max-width: 50%;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .nav-actions {
@@ -2938,6 +2938,7 @@ section {
   .logo {
     font-size: 1.3rem;
     max-width: 45%;
+    overflow: visible;
   }
 
   .hero-content {
