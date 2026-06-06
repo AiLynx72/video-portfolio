@@ -13,7 +13,7 @@ const navItems = [
 
 /* Developer-style logo:  </>  Dhana Siri */
 const DevLogo = () => (
-  <div className="nav-brand" aria-label="Dhana Siri – home">
+  <div className="logo nav-brand" aria-label="Dhana Siri – home">
     <span className="dev-logo-icon" aria-hidden="true">&lt;/&gt;</span>
     <span className="dev-logo-name">Dhana Siri</span>
   </div>

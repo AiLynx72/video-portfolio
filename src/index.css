@@ -35,7 +35,7 @@
   --shadow-orange: 0 0 40px rgba(249, 115, 22, 0.15);
   --shadow-card:   0 8px 32px rgba(0, 0, 0, 0.4);
   --font:          'Outfit', sans-serif;
-  --nav-height:    80px;
+  --nav-height:    72px;
   --navbar-height: var(--nav-height);
 }
 
@@ -239,28 +239,44 @@ ul { list-style: none; }
    ============================================ */
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  min-height: 80px;
+  height: var(--navbar-height);
+  z-index: 1000;
+  transform: none !important;
+  translate: none !important;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
-  z-index: 1000;
-  transition: var(--transition);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
   background: transparent;
-  opacity: 0;
-  transform: translateY(-100%);
-  animation: slideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  animation-delay: 0.1s;
+}
+
+.navbar,
+.navbar.scrolled {
+  top: 0;
+  height: var(--navbar-height);
 }
 
 .nav-container {
   width: 100%;
   max-width: none;
-  padding-inline: clamp(16px, 4vw, 48px);
+  margin: 0;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
   min-height: inherit;
+}
+
+.logo {
+  flex-shrink: 0;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .nav-actions {
@@ -446,15 +462,16 @@ ul { list-style: none; }
    HERO SECTION
    ============================================ */
 .hero {
-  min-height: 100dvh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 0 5%;
   padding-top: calc(var(--navbar-height) + 40px);
+  margin-top: 0;
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero::before {
@@ -2856,11 +2873,6 @@ section {
 }
 
 @media (max-width: 992px) {
-  :root {
-    --nav-height: 80px;
-    --navbar-height: 80px;
-  }
-
   .nav-links {
     position: absolute;
     top: 100%;
@@ -2911,15 +2923,7 @@ section {
 }
 
 @media (max-width: 768px) {
-  :root {
-    --nav-height: 72px;
-    --navbar-height: 72px;
-  }
-
   .navbar {
-    min-height: 72px;
-    padding-block: 10px;
-    align-items: center;
     overflow: hidden;
   }
 
@@ -2928,7 +2932,12 @@ section {
   }
 
   .nav-container {
-    padding-inline: 20px;
+    padding-inline: 16px;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+    max-width: 45%;
   }
 
   .hero-content {
