@@ -13,10 +13,10 @@ const navItems = [
 
 /* Developer-style logo:  </>  Dhana Siri */
 const DevLogo = () => (
-  <div className="logo nav-brand" aria-label="Dhana Siri – home">
+  <>
     <span className="dev-logo-icon" aria-hidden="true">&lt;/&gt;</span>
     <span className="dev-logo-name">Dhana Siri</span>
-  </div>
+  </>
 );
 
 /* Moon SVG icon */
@@ -93,7 +93,13 @@ const Navbar = () => {
   return (
     <nav className={`navbar${scrolled ? ' scrolled' : ''}${menuOpen ? ' menu-open' : ''}`} id="navbar">
       <div className="nav-container">
-        <a href="#home" onClick={(e) => handleNavClick(e, '#home')} style={{ textDecoration: 'none' }}>
+        <a
+          href="#home"
+          className="logo nav-brand"
+          onClick={(e) => handleNavClick(e, '#home')}
+          style={{ textDecoration: 'none' }}
+          aria-label="Dhana Siri – home"
+        >
           <DevLogo />
         </a>
 
