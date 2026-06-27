@@ -16,7 +16,7 @@ export function initScrollAnimations() {
   );
 
   // Apply stagger delay to card lists (0.1s increments)
-  const staggerSelectors = ['.skill-card', '.project-card', '.exp-card', '.about-card', '.stat-item'];
+  const staggerSelectors = ['.skill-card', '.project-card', '.exp-card', '.about-card', '.stat-item', '.profile-card'];
   staggerSelectors.forEach(sel => {
     document.querySelectorAll(sel).forEach((card, i) => {
       card.style.transitionDelay = `${i * 0.1}s`;
@@ -25,7 +25,7 @@ export function initScrollAnimations() {
 
   // Observe all scroll elements
   const elements = document.querySelectorAll(
-    '.section-header, .about-image-wrapper, .about-gif-wrapper, .about-text, .about-card, .skill-card, .project-card, .exp-card, .contact-info, .contact-form, .footer'
+    '.section-header, .about-image-wrapper, .about-gif-wrapper, .about-text, .about-card, .skill-card, .project-card, .exp-card, .contact-info, .contact-form, .footer, .profile-card'
   );
   elements.forEach((el) => observer.observe(el));
 }
@@ -34,7 +34,7 @@ export function initScrollAnimations() {
  * 3D tilt effect on cards.
  */
 export function initTilt() {
-  document.querySelectorAll('.project-card, .skill-card').forEach((card) => {
+  document.querySelectorAll('.project-card, .skill-card, .profile-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;

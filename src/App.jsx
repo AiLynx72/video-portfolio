@@ -8,6 +8,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Education from './components/Education';
 import Skills from './components/Skills';
+import CodingProfiles from './components/CodingProfiles';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Certifications from './components/Certifications';
@@ -37,6 +38,7 @@ function App() {
         <About />
         <Education />
         <Skills />
+        <CodingProfiles />
         <Projects />
         <Experience />
         <Certifications />
