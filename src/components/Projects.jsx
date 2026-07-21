@@ -9,7 +9,7 @@ const projects = [
     tags: ['WebRTC', 'React', 'Next.js', 'Socket.IO', 'TypeScript'],
     title: 'WebRTC Video Chat Application',
     desc: 'Built a real-time video communication platform supporting peer-to-peer communication using WebRTC and scalable frontend architecture. Designed for low-latency communication with room-based interactions and seamless user experience.',
-    github: 'https://github.com/Dhanasirikoppisetti/video_chat',
+    github: 'https://github.com/ailynx72/video_chat',
     demo: 'https://video-chat-2-lg6z.onrender.com/',
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     tags: ['Node.js', 'Redis', 'Webhooks', 'Backend', 'Async Processing'],
     title: 'Production-Ready Payment Gateway',
     desc: 'Developed an asynchronous payment processing system with secure webhook handling, Redis queue management, refund workflows, and scalable backend architecture for reliable transaction processing.',
-    github: 'https://github.com/Dhanasirikoppisetti/payment-gateway-async',
+    github: 'https://github.com/ailynx72/payment-gateway-async',
     demo: null,
   },
   {
@@ -31,7 +31,7 @@ const projects = [
     tags: ['Python', 'SQL', 'DBMS', 'CSV', 'Query Engine'],
     title: 'Mini SQL Database Engine',
     desc: 'Built a lightweight in-memory SQL engine supporting query execution, filtering, aggregation, CSV dataset operations, and SQL parsing to understand database internals and execution flow.',
-    github: 'https://github.com/Dhanasirikoppisetti/mini_sql_engine',
+    github: 'https://github.com/ailynx72/mini_sql_engine',
     demo: null,
   },
 ];
@@ -51,14 +51,18 @@ const GitHubIcon = () => (
 );
 
 const Projects = () => (
-  <section id="projects" className="bg-black py-24 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5">
-    <div className="max-w-6xl mx-auto">
+  <section id="projects" className="bg-gradient-to-b from-[#0a0a0d] via-[#140a0c] to-[#0a0a0d] py-24 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px]">
+    {/* Ambient glowing background orbs */}
+    <div className="absolute top-10 left-0 w-96 h-96 bg-[#ff4d00]/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="absolute bottom-10 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div className="max-w-6xl mx-auto relative z-10">
 
       {/* Header */}
       <div data-aos="fade-up" className="text-center mb-16">
-        <p className="text-[#ff2a2a] text-sm font-black tracking-widest uppercase mb-3">FEATURED PROJECTS</p>
+        <p className="text-[#ff7a18] text-sm font-black tracking-widest uppercase mb-3">FEATURED PROJECTS</p>
         <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-          Featured <span className="text-transparent [-webkit-text-stroke:1px_white]">Projects</span>
+          Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff7a18] to-[#ff4d00]">Projects</span>
         </h2>
       </div>
 
@@ -69,7 +73,7 @@ const Projects = () => (
             key={p.id}
             data-aos="fade-up"
             data-aos-delay={index * 150}
-            className="bg-[#111] border border-white/5 rounded-3xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-[#ff2a2a]/30 group hover:shadow-[0_15px_35px_rgba(255,42,42,0.03)] flex flex-col h-full"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-[#ff7a18]/40 group hover:shadow-[0_20px_40px_rgba(255,122,24,0.12)] flex flex-col h-full"
           >
             {/* Image Wrap */}
             <div className="relative aspect-video w-full overflow-hidden bg-neutral-900 shrink-0">
@@ -80,16 +84,16 @@ const Projects = () => (
                 loading="lazy"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"; // fallback image
+                  e.target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop";
                 }}
               />
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10">
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-10 backdrop-blur-xs">
                 {p.demo && (
                   <a
                     href={p.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-white text-black hover:bg-[#ff2a2a] hover:text-white transition-colors duration-200"
+                    className="p-3.5 rounded-full bg-white text-black hover:bg-[#ff7a18] hover:text-white transition-colors duration-200 shadow-lg"
                     title="Live Demo"
                   >
                     <ExternalIcon />
@@ -99,7 +103,7 @@ const Projects = () => (
                   href={p.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white text-black hover:bg-[#ff2a2a] hover:text-white transition-colors duration-200"
+                  className="p-3.5 rounded-full bg-white text-black hover:bg-[#ff7a18] hover:text-white transition-colors duration-200 shadow-lg"
                   title="GitHub Repository"
                 >
                   <GitHubIcon />
@@ -112,17 +116,17 @@ const Projects = () => (
               <div>
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#ff2a2a]/10 border border-[#ff2a2a]/20 text-[#ff2a2a] text-[10px] font-black uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#ff7a18]/20 to-[#ff4d00]/20 border border-[#ff7a18]/30 text-[#ff7a18] text-[10px] font-black uppercase tracking-wider shadow-sm">
                     {p.badge}
                   </span>
                   {p.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 rounded-full bg-white/5 text-white/50 text-[10px] font-bold">
+                    <span key={tag} className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-[10px] font-bold">
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-xl font-black text-white mb-3 tracking-tight leading-tight group-hover:text-[#ff2a2a] transition-colors duration-300">
+                <h3 className="text-xl font-black text-white mb-3 tracking-tight leading-tight group-hover:text-[#ff7a18] transition-colors duration-300">
                   {p.title}
                 </h3>
                 <p className="text-white/60 text-xs md:text-sm font-medium leading-relaxed mb-6">
@@ -131,12 +135,12 @@ const Projects = () => (
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
                 <a
                   href={p.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2 rounded-full border border-white/10 text-white hover:bg-white/5 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors duration-200"
+                  className="flex-1 py-2.5 rounded-full border border-white/15 text-white hover:bg-white/10 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors duration-200 shadow-sm"
                 >
                   <GitHubIcon /> Code
                 </a>
@@ -145,7 +149,7 @@ const Projects = () => (
                     href={p.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-2 rounded-full bg-white text-black hover:bg-[#ff2a2a] hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-200"
+                    className="flex-1 py-2.5 rounded-full bg-gradient-to-r from-[#ff7a18] to-[#ff4d00] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all duration-200 shadow-[0_0_15px_rgba(255,122,24,0.3)] hover:shadow-[0_0_20px_rgba(255,122,24,0.6)]"
                   >
                     <ExternalIcon /> Demo
                   </a>
@@ -160,10 +164,10 @@ const Projects = () => (
       {/* CTA Bottom */}
       <div data-aos="fade-up" className="text-center mt-16">
         <a
-          href="https://github.com/Dhanasirikoppisetti"
+          href="https://github.com/ailynx72"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black font-bold transition-all duration-300"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/5 border border-white/20 text-white hover:bg-gradient-to-r hover:from-[#ff7a18] hover:to-[#ff4d00] hover:border-transparent font-bold transition-all duration-300 shadow-lg"
         >
           Explore More Projects
         </a>

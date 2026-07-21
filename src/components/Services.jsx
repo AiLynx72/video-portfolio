@@ -75,19 +75,23 @@ const Services = () => {
     <section 
       id="services"
       ref={containerRef}
-      className="bg-black pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#80808006_1px,transparent_1px),linear-gradient(to_bottom,#80808006_1px,transparent_1px)] bg-[size:80px_80px] m-0 max-w-full border-t border-white/5"
+      className="bg-gradient-to-b from-[#0a0a0d] via-[#120a0f] to-[#0a0a0d] pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:60px_60px] m-0 max-w-full border-t border-white/5"
     >
-      <div className="max-w-6xl mx-auto relative md:h-[1350px]">
+      {/* Ambient background glow orbs */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#ff7a18]/10 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-[#ff4d00]/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div className="max-w-6xl mx-auto relative md:h-[1350px] z-10">
         
         {/* Header Content */}
         <div data-aos="fade-up" className="md:absolute top-10 left-0 md:w-[450px] z-20 mb-16 md:mb-0">
-          <div className="inline-block border border-white/10 rounded-full px-5 py-1.5 text-xs text-white/50 font-bold mb-8 shadow-sm bg-neutral-900">
+          <div className="inline-block border border-white/10 rounded-full px-5 py-1.5 text-xs text-white/70 font-bold mb-8 shadow-sm bg-neutral-900/80 backdrop-blur-md">
             WORK METHODOLOGY
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight relative">
             Driving engineering quality to new heights
             {/* Hand-drawn arrow */}
-            <svg className="absolute -bottom-10 right-10 w-12 h-12 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute -bottom-10 right-10 w-12 h-12 text-[#ff7a18]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path d="M4 4 Q 10 10 15 15 M 15 15 L 10 15 M 15 15 L 15 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </h2>
@@ -126,11 +130,11 @@ const Services = () => {
           <path 
             d="M 650,200 C 400,300 200,400 300,600 C 400,800 750,750 700,950 C 650,1150 400,1150 300,1200" 
             fill="none" 
-            stroke="#ff2a2a" 
+            stroke="#ff7a18" 
             strokeWidth="2.5" 
             strokeDasharray="8 10" 
             mask="url(#path-mask)"
-            className="drop-shadow-[0_0_8px_rgba(255,42,42,0.4)]"
+            className="drop-shadow-[0_0_8px_rgba(255,122,24,0.6)]"
           />
         </svg>
 

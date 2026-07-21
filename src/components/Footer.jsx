@@ -60,12 +60,12 @@ const Footer = () => {
         </div>
         
         <div className="flex flex-col gap-1 md:items-center">
-          <a href="mailto:koppisettidhanasiri@gmail.com" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 lowercase">koppisettidhanasiri@gmail.com</a>
+          <a href="mailto:ailynx72@gmail.com" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 lowercase">ailynx72@gmail.com</a>
         </div>
         
         <div className="flex flex-col gap-1 md:items-end">
-          <a href="https://github.com/Dhanasirikoppisetti" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors underline-offset-4 decoration-1">GitHub</a>
-          <a href="https://www.linkedin.com/in/dhanasiri-koppisetti-655565302/" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors underline-offset-4 decoration-1">LinkedIn</a>
+          <a href="https://github.com/ailynx72" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors underline-offset-4 decoration-1">GitHub</a>
+          <a href="https://linkedin.com/in/ailynx72" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors underline-offset-4 decoration-1">LinkedIn</a>
         </div>
       </div>
     </footer>

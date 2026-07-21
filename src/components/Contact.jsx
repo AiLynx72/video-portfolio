@@ -45,7 +45,11 @@ const Contact = () => {
   };
 
   return (
-    <section ref={containerRef} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-white/5 m-0 max-w-full">
+    <section ref={containerRef} id="contact" className="bg-[#0a0a0d] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-white/5 m-0 max-w-full bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px]">
+      {/* Ambient background glow orbs */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#ff7a18]/15 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#ff4d00]/20 rounded-full blur-[180px] pointer-events-none"></div>
+
       {/* Huge Background Parallax Text */}
       <motion.div 
         style={{ y }}
@@ -63,9 +67,9 @@ const Contact = () => {
       <div className="relative z-10 w-full flex justify-end items-end">
         <div 
           data-aos="fade-up"
-          className="bg-[#ff2a2a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
+          className="bg-gradient-to-br from-[#ff7a18] via-[#ff4d00] to-[#e62222] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between shadow-[0_-20px_60px_rgba(255,77,0,0.25)] rounded-t-3xl md:rounded-tl-3xl md:rounded-tr-none"
         >
-          <div className="text-xs font-black tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
+          <div className="text-xs font-black tracking-[0.25em] mb-12 md:mb-20 uppercase opacity-90 drop-shadow-sm">
             Reach Out
           </div>
 
@@ -81,7 +85,7 @@ const Contact = () => {
                     id="firstName" 
                     placeholder="Your Name" 
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/70 font-medium rounded-none"
                   />
                 </div>
                 <div className="relative">
@@ -91,7 +95,7 @@ const Contact = () => {
                     id="email" 
                     placeholder="Email Address" 
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/70 font-medium rounded-none"
                   />
                 </div>
                 <div className="relative">
@@ -101,7 +105,7 @@ const Contact = () => {
                     id="subject" 
                     placeholder="Subject" 
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/70 font-medium rounded-none"
                   />
                 </div>
               </div>
@@ -114,7 +118,7 @@ const Contact = () => {
                     id="message" 
                     placeholder="Type your message here" 
                     required
-                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium resize-none rounded-none"
+                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/70 font-medium resize-none rounded-none"
                   ></textarea>
                 </div>
               </div>
@@ -122,12 +126,12 @@ const Contact = () => {
 
             {/* Success and Error messages */}
             {success && (
-              <div className="p-4 rounded-xl bg-green-900/30 border border-green-500/50 text-white font-bold text-sm">
+              <div className="p-4 rounded-xl bg-black/40 border border-white/30 text-white font-bold text-sm shadow-md">
                 ✅ Message sent successfully! I will get back to you soon.
               </div>
             )}
             {error && (
-              <div className="p-4 rounded-xl bg-red-950/30 border border-red-500/50 text-white font-bold text-sm">
+              <div className="p-4 rounded-xl bg-black/40 border border-white/30 text-white font-bold text-sm shadow-md">
                 ❌ Something went wrong. Please try again.
               </div>
             )}
@@ -149,23 +153,23 @@ const Contact = () => {
               </div>
 
               {/* Right text & button */}
-              <div className="flex-1 flex flex-col gap-8 text-xs text-white/70 font-semibold">
+              <div className="flex-1 flex flex-col gap-8 text-xs text-white/80 font-semibold">
                 <p className="leading-relaxed max-w-[400px]">
                   This form is protected and messages are dispatched securely to my primary address.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
                   <p className="max-w-[250px] leading-relaxed">
-                    Direct Email: <a href="mailto:koppisettidhanasiri@gmail.com" className="underline hover:text-white transition-colors font-black">koppisettidhanasiri@gmail.com</a>
+                    Direct Email: <a href="mailto:ailynx72@gmail.com" className="underline hover:text-white transition-colors font-black">ailynx72@gmail.com</a>
                   </p>
                   
                   <button 
                     type="submit" 
                     disabled={sending}
-                    className="px-8 py-3 rounded-full border border-white/40 text-white font-black flex items-center justify-center gap-3 hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-8 py-3.5 rounded-full bg-black text-white font-black flex items-center justify-center gap-3 hover:bg-white hover:text-[#ff4d00] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:scale-105"
                   >
                     {sending ? 'Sending...' : 'Send'}
                     <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </button>
                 </div>

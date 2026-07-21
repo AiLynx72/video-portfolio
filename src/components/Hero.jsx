@@ -56,7 +56,6 @@ const Hero = () => {
   const typedRole = useTyped();
 
   useEffect(() => {
-    // Autoplay video on load but muted to satisfy browser policies
     if (videoRef.current) {
       videoRef.current.play().then(() => {
         setIsPlaying(true);
@@ -69,9 +68,14 @@ const Hero = () => {
   const toggleVideo = (e) => {
     e.stopPropagation();
     if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
+      if (videoRef.current.paused || isMuted) {
+        videoRef.current.muted = false;
+        setIsMuted(false);
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => {
+          console.log("Audio play failed:", err);
+        });
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
@@ -95,20 +99,17 @@ const Hero = () => {
         loop
         muted={isMuted}
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-40"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-100 m-0 p-0"
       >
         <source src={heroVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      {/* Subtle overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent z-10" />
-
       {/* Content Container */}
       <div className="absolute inset-0 z-20 px-6 pb-20 md:pb-[8%] md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row justify-end md:justify-between items-start md:items-end text-left w-full h-full">
         
         {/* Left Side: Text and Buttons */}
-        <div className="flex flex-col items-start text-left max-w-2xl w-full">
+        <div className="flex flex-col items-start text-left max-w-2xl w-full drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
           <p 
             data-aos="fade-up" 
             className="text-[#ff2a2a] text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-4"
@@ -137,7 +138,7 @@ const Hero = () => {
           <p 
             data-aos="fade-up"
             data-aos-delay="300"
-            className="text-white/60 text-sm md:text-base font-semibold mb-10 max-w-md leading-relaxed"
+            className="text-white/80 text-sm md:text-base font-semibold mb-10 max-w-md leading-relaxed"
           >
             Engineering smart systems, responsive full-stack architectures, and creative AI & ML integrations.
           </p>
@@ -157,7 +158,7 @@ const Hero = () => {
             </a>
             
             <a 
-              href="#contact"
+              href="#contact" 
               onClick={(e) => handleNavClick(e, '#contact')}
               className="px-8 py-3.5 text-xs md:text-sm rounded-full bg-black/40 border border-white/20 text-white font-bold hover:bg-black/60 hover:border-white/50 transition-all duration-300 backdrop-blur-md"
             >
@@ -166,33 +167,34 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Side: Play Video Button */}
+        {/* Right Side: Play Video Button Only */}
         <div 
           data-aos="zoom-in"
           data-aos-delay="500"
-          className="mt-8 md:mt-0 flex flex-row md:flex-col items-center gap-3 cursor-pointer group self-start md:self-auto"
+          className="mt-8 md:mt-0 flex flex-row md:flex-col items-center gap-2 cursor-pointer group self-start md:self-auto"
           onClick={toggleVideo}
         >
-          <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-white/20 bg-black/30 backdrop-blur-md flex justify-center items-center group-hover:scale-110 group-hover:bg-[#ff2a2a] group-hover:border-transparent transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_40px_rgba(255,42,42,0.5)]">
-            {!isPlaying ? (
+          <div className="w-9 h-9 md:w-12 md:h-12 rounded-full border border-white/20 bg-black/40 backdrop-blur-md flex justify-center items-center group-hover:scale-110 group-hover:bg-[#ff2a2a] group-hover:border-transparent transition-all duration-300 shadow-md">
+            {!isPlaying || isMuted ? (
               // Play Icon
-              <svg className="w-5 h-5 md:w-8 md:h-8 text-white ml-0.5 md:ml-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-white ml-0.5 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             ) : (
               // Pause Icon
-              <svg className="w-5 h-5 md:w-8 md:h-8 text-white transition-transform" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-white transition-transform" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
               </svg>
             )}
           </div>
-          <span className="text-white text-[10px] md:text-xs font-black tracking-widest uppercase opacity-75 group-hover:opacity-100 transition-opacity">
-            {!isPlaying ? "Play Intro" : "Pause Reel"}
+          <span className="text-white text-[9px] md:text-[10px] font-black tracking-widest uppercase opacity-75 group-hover:opacity-100 transition-opacity">
+            {!isPlaying || isMuted ? "Play Audio" : "Pause Reel"}
           </span>
         </div>
+
       </div>
 
-      {/* Downward Bounce Arrow */}
+      {/* Downward Arrow */}
       <div 
         data-aos="fade-up"
         data-aos-delay="600"

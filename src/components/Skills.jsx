@@ -109,14 +109,18 @@ const skillsData = [
 ];
 
 const Skills = () => (
-  <section id="skills" className="bg-black py-24 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5">
-    <div className="max-w-6xl mx-auto">
+  <section id="skills" className="bg-gradient-to-b from-[#0a0a0d] via-[#120a0f] to-[#0a0a0d] py-24 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:32px_32px]">
+    {/* Ambient background glow elements */}
+    <div className="absolute top-1/3 left-10 w-96 h-96 bg-[#ff4d00]/10 rounded-full blur-[130px] pointer-events-none"></div>
+    <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div className="max-w-6xl mx-auto relative z-10">
       
       {/* Header */}
       <div data-aos="fade-up" className="text-center mb-16">
-        <p className="text-[#ff2a2a] text-sm font-black tracking-widest uppercase mb-3">MY SKILLS</p>
+        <p className="text-[#ff7a18] text-sm font-black tracking-widest uppercase mb-3">MY SKILLS</p>
         <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-          Tech <span className="text-transparent [-webkit-text-stroke:1px_white]">Stack</span>
+          Tech <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff7a18] to-[#ff4d00]">Stack</span>
         </h2>
       </div>
 
@@ -127,14 +131,14 @@ const Skills = () => (
             key={skill.id}
             data-aos="fade-up"
             data-aos-delay={index * 100}
-            className="bg-[#111] border border-white/5 rounded-3xl p-6 hover:border-[#ff2a2a]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(255,42,42,0.03)] group"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:border-[#ff7a18]/40 hover:bg-white/[0.05] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_35px_rgba(255,122,24,0.12)] group"
           >
             {/* Title / Icon Row */}
             <div className="flex items-center gap-4 mb-6">
-              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${skill.gradient} flex items-center justify-center shadow-md`}>
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${skill.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {skill.icon}
               </div>
-              <h3 className="text-xl font-black text-white group-hover:text-[#ff2a2a] transition-colors duration-300">{skill.title}</h3>
+              <h3 className="text-xl font-black text-white group-hover:text-[#ff7a18] transition-colors duration-300">{skill.title}</h3>
             </div>
 
             {/* Tags wrapper */}
@@ -142,10 +146,10 @@ const Skills = () => (
               {skill.tags.map((tag) => (
                 <span 
                   key={tag.label}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-bold transition-all duration-200 border border-white/5"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/15 text-white/80 hover:text-white text-xs font-bold transition-all duration-200 border border-white/10 hover:border-white/20 shadow-sm"
                 >
                   <i 
-                    className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-black italic not-italic font-mono"
+                    className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-black italic not-italic font-mono shadow-sm"
                     style={{ background: tag.bg, color: tag.color || '#fff' }}
                   >
                     {tag.short}

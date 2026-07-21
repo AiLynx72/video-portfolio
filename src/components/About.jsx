@@ -13,8 +13,12 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="bg-[#ff2a2a] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+    <section id="about" className="bg-gradient-to-b from-[#ff2a2a] via-[#e62222] to-[#b31414] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full">
+      {/* Background ambient lighting effects */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-black/20 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-yellow-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start relative z-10">
         
         {/* Left Side: ID Badge Lanyard String and Card */}
         <div className="flex flex-col items-center w-full md:w-[350px] shrink-0 mt-12 md:mt-0">
@@ -26,13 +30,13 @@ const About = () => {
             <div className="absolute -top-6 left-1/2 w-6 h-12 bg-gray-300 rounded border border-gray-400 transform -translate-x-1/2 z-10 shadow-[0_2px_10px_rgba(0,0,0,0.3)]"></div>
             
             {/* Badge Card */}
-            <div className="bg-gray-900 w-full max-w-[280px] rounded-2xl p-4 shadow-[0_20px_40px_rgba(0,0,0,0.5)] relative z-20 transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+            <div className="bg-gray-900/90 backdrop-blur-xl border border-white/10 w-full max-w-[280px] rounded-2xl p-4 shadow-[0_25px_50px_rgba(0,0,0,0.6)] relative z-20 transform -rotate-3 hover:rotate-0 transition-transform duration-500">
               {/* Cutout Hole */}
               <div className="absolute -top-3 left-1/2 w-16 h-6 bg-gray-900 rounded-t-xl transform -translate-x-1/2 flex justify-center items-center">
-                <div className="w-8 h-2 bg-black/35 rounded-full shadow-inner"></div>
+                <div className="w-8 h-2 bg-black/50 rounded-full shadow-inner"></div>
               </div>
               {/* Image Container */}
-              <div className="w-full aspect-[3/4] overflow-hidden rounded-xl bg-gray-800 border-2 border-white/5">
+              <div className="w-full aspect-[3/4] overflow-hidden rounded-xl bg-gray-800 border-2 border-white/10">
                 <img 
                   src="/ailynx_id.jpg" 
                   alt="AILynx Profile" 
@@ -42,7 +46,7 @@ const About = () => {
               {/* Badge text info */}
               <div className="mt-4 text-center">
                 <h4 className="text-white text-base font-black tracking-tight uppercase">AILynx</h4>
-                <p className="text-white/40 text-[10px] font-mono tracking-widest uppercase mt-1">AI & ML Developer</p>
+                <p className="text-white/50 text-[10px] font-mono tracking-widest uppercase mt-1">AI & ML Developer</p>
               </div>
             </div>
           </div>
@@ -52,7 +56,7 @@ const About = () => {
         {/* Right Side: Description Info */}
         <div data-aos="fade-left" data-aos-delay="200" className="flex-1 text-white mt-8 md:mt-0 relative z-20">
           
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-6 tracking-tight">Hello!</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-black mb-6 tracking-tight drop-shadow-sm">Hello!</h2>
           
           <p className="text-lg font-bold mb-6 leading-relaxed max-w-3xl text-red-50">
             Hi, my name is <span className="text-black text-xl font-black tracking-wide uppercase">AILynx</span>. I am a B.Tech student specializing in <span className="text-black font-black">Artificial Intelligence</span> and <span className="text-black font-black">Machine Learning</span>, with a strong passion for software engineering and technical problem solving.
@@ -71,14 +75,14 @@ const About = () => {
             <a
               href="#skills"
               onClick={handleExploreClick}
-              className="px-6 py-3 rounded-full bg-black text-white font-bold hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 transform hover:scale-105"
+              className="px-8 py-3.5 rounded-full bg-black text-white font-bold hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 transform hover:scale-105 shadow-xl"
             >
               Explore Skills
             </a>
           </div>
 
           {/* Horizontal Tech Skills row */}
-          <div className="flex items-center gap-8 md:gap-12 mt-16 border-t border-white/10 pt-8">
+          <div className="flex items-center gap-8 md:gap-12 mt-16 border-t border-white/20 pt-8">
             <img 
               data-aos="zoom-in" data-aos-delay="300"
               src={reactImage} 
@@ -104,7 +108,7 @@ const About = () => {
 
       {/* Torn paper decorative SVG divider */}
       <div className="absolute bottom-0 left-0 w-full pointer-events-none z-30 transform translate-y-1">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12 md:h-20 fill-black">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12 md:h-20 fill-[#0a0a0d]">
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.62,189.5,99.8,242.79,81.82,282.88,63.6,321.39,56.44Z"></path>
         </svg>
       </div>
