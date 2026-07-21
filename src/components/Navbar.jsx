@@ -1,163 +1,137 @@
-import { useState, useEffect } from 'react';
-
-const navItems = [
-  { href: '#home',             label: 'Home'          },
-  { href: '#about',            label: 'About'         },
-  { href: '#education',        label: 'Education'     },
-  { href: '#skills',           label: 'Skills'        },
-  { href: '#coding',           label: 'Coding'        },
-  { href: '#projects',         label: 'Projects'      },
-  { href: '#experience',       label: 'Experience'    },
-  { href: '#certifications',   label: 'Certifications'},
-  { href: '#contact',          label: 'Contact'       },
-];
-
-/* Developer-style logo:  </>  Dhana Siri */
-const DevLogo = () => (
-  <>
-    <span className="dev-logo-icon" aria-hidden="true">&lt;/&gt;</span>
-    <span className="dev-logo-name">Dhana Siri</span>
-  </>
-);
-
-/* Moon SVG icon */
-const MoonIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-  </svg>
-);
-
-/* Sun SVG icon */
-const SunIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="5" />
-    <line x1="12" y1="1"  x2="12" y2="3" />
-    <line x1="12" y1="21" x2="12" y2="23" />
-    <line x1="4.22"  y1="4.22"  x2="5.64"  y2="5.64" />
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-    <line x1="1"  y1="12" x2="3"  y2="12" />
-    <line x1="21" y1="12" x2="23" y2="12" />
-    <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36" />
-    <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22" />
-  </svg>
-);
+import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
-  const [scrolled,      setScrolled]      = useState(false);
-  const [menuOpen,      setMenuOpen]      = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [theme,         setTheme]         = useState(() => {
-    return localStorage.getItem('portfolio-theme') || 'dark';
-  });
-  const [rotating, setRotating] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  /* Apply theme to <html> on mount + change */
+  // Handle scroll to transition navbar styling
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
-
-  /* Scroll → glass effect */
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  /* Active section detection */
-  useEffect(() => {
-    const sections = document.querySelectorAll('section[id]');
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); }),
-      { rootMargin: '-40% 0px -55% 0px' }
-    );
-    sections.forEach(s => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
+  const navLinks = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Education', href: '#education' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Coding', href: '#coding' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Services', href: '#services' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Certifications', href: '#certifications' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
-  const handleNavClick = (e, href) => {
+  const handleLinkClick = (e, href) => {
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setMenuOpen(false);
-  };
-
-  const handleThemeToggle = () => {
-    setRotating(true);
-    setTimeout(() => setRotating(false), 420);
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setIsOpen(false);
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}${menuOpen ? ' menu-open' : ''}`} id="navbar">
-      <div className="nav-container">
-        <a
-          href="#home"
-          className="logo nav-brand"
-          onClick={(e) => handleNavClick(e, '#home')}
-          style={{ textDecoration: 'none' }}
-          aria-label="Dhana Siri – home"
-        >
-          <DevLogo />
-        </a>
-
-        <ul className={`nav-links${menuOpen ? ' open' : ''}`} id="navLinks">
-          {navItems.map(({ href, label }) => (
-            <li key={href}>
-              <a
-                href={href}
-                className={`nav-link${activeSection === href.slice(1) ? ' active' : ''}`}
-                id={`nav-${href.slice(1)}`}
-                onClick={(e) => handleNavClick(e, href)}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-          <li className="mobile-only-hire">
-            <a
-              href="#contact"
-              className="btn-hire btn-hire-mobile"
-              onClick={(e) => handleNavClick(e, '#contact')}
-            >
-              Hire Me
-            </a>
-          </li>
-        </ul>
-
-        <div className="nav-actions">
-          {/* Theme Toggle */}
-          <button
-            className={`theme-toggle${rotating ? ' rotating' : ''}`}
-            id="themeToggle"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            onClick={handleThemeToggle}
+    <nav 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isOpen 
+          ? 'bg-[#ff2a2a] py-4 shadow-2xl'
+          : isScrolled 
+            ? 'bg-black/90 backdrop-blur-md border-b border-white/5 py-4 shadow-lg' 
+            : 'bg-transparent py-6'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        
+        {/* Logo */}
+        <div className="flex items-center">
+          <a 
+            href="#home" 
+            onClick={(e) => handleLinkClick(e, '#home')}
+            className="text-white text-2xl font-black tracking-tight"
           >
-            {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
-          </button>
+            AILynx<span className="text-[#ff2a2a] transition-colors duration-300 group-hover:text-white">.</span>
+          </a>
+        </div>
 
-          <a
-            href="#contact"
-            className="btn-hire"
-            id="btn-hire-nav"
-            onClick={(e) => handleNavClick(e, '#contact')}
+        {/* Desktop Navigation Links */}
+        <div className="hidden lg:flex space-x-6 xl:space-x-8">
+          {navLinks.map((link) => (
+            <a 
+              key={link.label} 
+              href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className="text-white/80 hover:text-white font-semibold relative group transition-colors duration-300 text-sm xl:text-base"
+            >
+              {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ff2a2a] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="hidden lg:block">
+          <a 
+            href="#contact" 
+            onClick={(e) => handleLinkClick(e, '#contact')}
+            className="px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/25 hover:shadow-[0_0_15px_rgba(255,255,255,0.25)] transition-all duration-300 backdrop-blur-md text-sm"
           >
             Hire Me
           </a>
+        </div>
 
-          <button
-            className="hamburger"
-            id="hamburger"
+        {/* Mobile Hamburger menu */}
+        <div className="lg:hidden flex items-center">
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-white focus:outline-none p-2"
             aria-label="Toggle menu"
-            onClick={() => setMenuOpen(prev => !prev)}
           >
-            <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 6px)' : '' }} />
-            <span style={{ opacity: menuOpen ? '0' : '1' }} />
-            <span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -6px)' : '' }} />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`lg:hidden absolute top-full left-0 w-full transition-all duration-300 overflow-hidden ${
+          isOpen ? 'max-h-[500px] py-6 opacity-100 bg-[#ff2a2a] shadow-2xl' : 'max-h-0 opacity-0 bg-transparent pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col px-6 space-y-4">
+          {navLinks.map((link) => (
+            <a 
+              key={link.label} 
+              href={link.href}
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className="text-white hover:text-black font-bold text-lg border-b border-white/10 pb-2 transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+          <div className="pt-4">
+             <a 
+               href="#contact" 
+               onClick={(e) => handleLinkClick(e, '#contact')}
+               className="inline-block px-6 py-3 rounded-full bg-white text-[#ff2a2a] font-black hover:bg-black hover:text-white transition-colors w-full text-center shadow-lg"
+             >
+               Hire Me
+             </a>
+          </div>
         </div>
       </div>
     </nav>

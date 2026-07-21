@@ -1,153 +1,76 @@
-const certifications = [
-  {
-    id: 'cert-html-css',
-    title: 'HTML & CSS',
-    issuer: 'Certiport / Microsoft',
-    image: '/htmlcsscoverimage.png',
-    link: '/HTML&CSS.pdf',
-  },
-  {
-    id: 'cert-java',
-    title: 'Java SE (Oracle Certified)',
-    issuer: 'Oracle',
-    image: '/JAVA8OJA.jpg',
-    link: '/Oracle_java.pdf',
-  },
-  {
-    id: 'cert-python',
-    title: 'Python Essentials',
-    issuer: 'Cisco Networking Academy',
-    image: '/pythoncoverpage.png',
-    link: '/cisco_python.pdf',
-  },
-  {
-    id: 'cert-c',
-    title: 'C Programming Language',
-    issuer: 'C Language Archive (CLA)',
-    image: '/c_coverpage.png',
-    link: '/cla_c.pdf',
-  },
-  {
-    id: 'cert-js1',
-    title: 'JavaScript Essentials 1',
-    issuer: 'Cisco Networking Academy',
-    image: '/js1_coverpage.png',
-    link: '/23MH1A4228_JS1.pdf',
-  },
-  {
-    id: 'cert-js2',
-    title: 'JavaScript Essentials 2',
-    issuer: 'Cisco Networking Academy',
-    image: '/js2_coverpage.png',
-    link: '/23MH1A4228_JS2.pdf',
-  },
-  {
-    id: 'cert-mongodb',
-    title: 'MongoDB Associate Developer',
-    issuer: 'MongoDB University',
-    image: '/mongodb-associate-developer.11.png',
-    link: '/MongoDBAssociateDeveloper_Badge20260318-31-e5g16f.pdf',
-  },
+import React from 'react';
+
+const dummyCertifications = [
   {
     id: 'cert-aws',
-    title: 'AWS Academy Cloud Foundations',
+    title: 'AWS Certified Solutions Architect',
     issuer: 'Amazon Web Services',
-    image: '/aws-academy-graduate-aws-academy-cloud-foundations.png',
-    link: '/AWS.pdf',
+    date: 'Issued 2024',
+    badgeBg: 'from-amber-500 to-orange-600',
+    iconText: 'AWS',
   },
   {
-    id: 'cert-dbms',
-    title: 'Database Management Systems',
-    issuer: 'NPTEL / IIT',
-    image: '/nptelcoverpage.jpg',
-    link: '/DBMS.pdf',
+    id: 'cert-meta',
+    title: 'Meta Front-End Developer',
+    issuer: 'Meta Professional',
+    date: 'Issued 2024',
+    badgeBg: 'from-blue-600 to-cyan-500',
+    iconText: 'META',
   },
   {
-    id: 'cert-sql-inter',
-    title: 'SQL (Intermediate)',
-    issuer: 'HackerRank',
-    image: '/sql_intercoverpage.png',
-    link: '/sql_intermediate certificate.pdf',
+    id: 'cert-mongo',
+    title: 'MongoDB Certified Associate',
+    issuer: 'MongoDB University',
+    date: 'Issued 2023',
+    badgeBg: 'from-emerald-600 to-green-500',
+    iconText: 'MDB',
   },
   {
-    id: 'cert-genai',
-    title: 'Generative AI',
-    issuer: 'Oracle',
-    image: '/oracle_genai_coverpage.png',
-    link: '/GenAI.pdf',
-  },
-  {
-    id: 'cert-github',
-    title: 'GitHub Foundations',
-    issuer: 'GitHub',
-    image: '/github_coverpage.png',
-    link: '/githubcert.pdf',
+    id: 'cert-gcp',
+    title: 'Google Cloud Associate Engineer',
+    issuer: 'Google Cloud Platform',
+    date: 'Issued 2023',
+    badgeBg: 'from-red-600 to-rose-500',
+    iconText: 'GCP',
   },
 ];
 
-const LinkIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-);
-
 const Certifications = () => (
-  <section className="certifications" id="certifications">
-    <div className="section-container">
+  <section id="certifications" className="bg-black py-20 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5">
+    <div className="max-w-5xl mx-auto">
 
-      <div className="section-header animate-in">
-        <p className="section-tag">MY CERTIFICATIONS</p>
-        <h2 className="section-title">
-          <span className="title-line title-line--left"></span>
-          My <span className="highlight">Certifications</span>
-          <span className="title-line title-line--right"></span>
+      {/* Header */}
+      <div data-aos="fade-up" className="text-center mb-12">
+        <p className="text-[#ff2a2a] text-xs font-black tracking-widest uppercase mb-2">CREDENTIALS</p>
+        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+          Certifications & <span className="text-transparent [-webkit-text-stroke:1px_white]">Badges</span>
         </h2>
       </div>
 
-      <div className="cert-grid">
-        {certifications.map((cert) => (
-          <div className="cert-card animate-in" id={cert.id} key={cert.id}>
-
-            {/* Clickable image */}
-            <a
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cert-img-wrapper"
-              id={`${cert.id}-img`}
-              aria-label={`View ${cert.title} certificate`}
-            >
-              <img
-                src={cert.image}
-                alt={`${cert.title} certificate preview`}
-                className="cert-img"
-                loading="lazy"
-              />
-              <div className="cert-img-overlay">
-                <span className="cert-view-icon">
-                  <LinkIcon /> View
-                </span>
-              </div>
-            </a>
-
-            {/* Info */}
-            <div className="cert-info">
-              <span className="cert-issuer">{cert.issuer}</span>
-              <h3 className="cert-title">{cert.title}</h3>
-              <a
-                href={cert.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cert-btn"
-                id={`${cert.id}-btn`}
-              >
-                <LinkIcon /> View Certificate
-              </a>
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {dummyCertifications.map((cert, index) => (
+          <div 
+            key={cert.id}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+            className="bg-[#111] border border-white/5 rounded-2xl p-5 flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.02] hover:border-[#ff2a2a]/30 group hover:shadow-[0_10px_25px_rgba(255,42,42,0.02)]"
+          >
+            {/* Badge Icon */}
+            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cert.badgeBg} flex items-center justify-center text-white font-black text-xs tracking-wider shadow-md mb-4`}>
+              {cert.iconText}
             </div>
 
+            <span className="text-[10px] font-black text-[#ff2a2a] uppercase tracking-widest block mb-1">
+              {cert.issuer}
+            </span>
+            <h3 className="text-sm font-black text-white leading-snug tracking-tight mb-3 group-hover:text-[#ff2a2a] transition-colors duration-300">
+              {cert.title}
+            </h3>
+            
+            <span className="text-[10px] font-mono text-white/40 font-semibold mt-auto">
+              {cert.date}
+            </span>
           </div>
         ))}
       </div>

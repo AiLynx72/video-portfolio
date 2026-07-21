@@ -1,4 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import heroVideo from '../assets/hero video/Developer_introduces_self_and_sk…_202606051918.mp4';
 
 const roles = [
   'AI & ML Student',
@@ -36,10 +39,10 @@ const useTyped = () => {
         isDeleting.current = false;
         roleIndex.current = (roleIndex.current + 1) % roles.length;
       }
-      timeout = setTimeout(typeEffect, isDeleting.current ? 55 : 105);
+      timeout = setTimeout(typeEffect, isDeleting.current ? 50 : 100);
     };
 
-    timeout = setTimeout(typeEffect, 1400);
+    timeout = setTimeout(typeEffect, 1000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -47,151 +50,167 @@ const useTyped = () => {
 };
 
 const Hero = () => {
-  const typedText = useTyped();
-  const [scrollVisible, setScrollVisible] = useState(true);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const typedRole = useTyped();
 
   useEffect(() => {
-    const orb1 = document.querySelector('.hero-orb-1');
-    const orb2 = document.querySelector('.hero-orb-2');
-    const glow = document.querySelector('.hero-bg-glow');
-
-    const onScroll = () => {
-      const scrollY = window.scrollY;
-      setScrollVisible(scrollY < 100);
-
-      // Smooth parallax on scroll for background decorative elements
-      if (window.innerWidth > 768) {
-        if (orb1) orb1.style.transform = `translateY(${scrollY * 0.35}px)`;
-        if (orb2) orb2.style.transform = `translateY(${scrollY * -0.15}px)`;
-        if (glow) glow.style.transform = `translateY(${scrollY * 0.2}px)`;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    // Autoplay video on load but muted to satisfy browser policies
+    if (videoRef.current) {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.log("Autoplay blocked, user interaction required:", err);
+      });
+    }
   }, []);
+
+  const toggleVideo = (e) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
     const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
-    <section className="hero" id="home">
-      <div className="hero-bg-glow" />
-      <div className="hero-orb-1" />
-      <div className="hero-orb-2" />
-      <div className="hero-content">
+    <section id="home" className="relative w-full h-screen overflow-hidden bg-black m-0 p-0 max-w-full">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        loop
+        muted={isMuted}
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-40"
+      >
+        <source src={heroVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-        {/* ── Left: Text ─────────────────────────────── */}
-        <div className="hero-text">
-          <div className="social-icons">
-            <a
-              href="https://github.com/Dhanasirikoppisetti"
-              target="_blank" rel="noopener noreferrer"
-              className="social-icon" id="social-github" aria-label="GitHub"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-            </a>
-            <a
-              href="https://linkedin.com/in/dhanasiri-koppisetti-655565302"
-              target="_blank" rel="noopener noreferrer"
-              className="social-icon" id="social-linkedin" aria-label="LinkedIn"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-            </a>
-            <a
-              href="mailto:koppisettidhanasiri@gmail.com"
-              className="social-icon" id="social-email" aria-label="Email"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-            </a>
-          </div>
+      {/* Subtle overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent z-10" />
 
-          <p className="hero-greeting">Hello, It&apos;s Me</p>
-          <h1 className="hero-name">
-            Dhana Siri <span className="highlight">Koppisetti</span>
+      {/* Content Container */}
+      <div className="absolute inset-0 z-20 px-6 pb-20 md:pb-[8%] md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row justify-end md:justify-between items-start md:items-end text-left w-full h-full">
+        
+        {/* Left Side: Text and Buttons */}
+        <div className="flex flex-col items-start text-left max-w-2xl w-full">
+          <p 
+            data-aos="fade-up" 
+            className="text-[#ff2a2a] text-xs md:text-sm font-black tracking-[0.25em] uppercase mb-4"
+          >
+            AI & ML Engineer
+          </p>
+
+          <h1 
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-white text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-none"
+          >
+            AI<span className="text-[#ff2a2a]">Lynx</span>
           </h1>
-          <p className="hero-role">
-            And I&apos;m an{' '}
-            <span className="typed-text" id="typedText">{typedText}</span>
-            <span className="cursor">|</span>
-          </p>
-          <p className="hero-tagline">
-            Building modern web applications and intelligent software solutions.
-          </p>
-          <p className="hero-description">
-            I am passionate about software development, AI &amp; ML, and creating impactful
-            digital solutions. I enjoy building user-friendly applications and continuously
-            improving my technical skills.
-          </p>
-          <div className="hero-buttons">
-            {/* Primary — View Resume */}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              id="btn-view-resume"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10 9 9 9 8 9" />
-              </svg>
-              <span>View Resume</span>
-            </a>
 
-            {/* Secondary — Contact Me */}
-            <a
+          {/* Typing Roles Container */}
+          <p 
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-white text-2xl md:text-4xl font-extrabold mb-8 tracking-tight min-h-[48px]"
+          >
+            I build <span className="text-[#ff2a2a]">{typedRole}</span> solutions
+            <span className="text-[#ff2a2a] animate-pulse">|</span>
+          </p>
+
+          <p 
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="text-white/60 text-sm md:text-base font-semibold mb-10 max-w-md leading-relaxed"
+          >
+            Engineering smart systems, responsive full-stack architectures, and creative AI & ML integrations.
+          </p>
+
+          {/* Action Buttons */}
+          <div 
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="flex flex-row flex-wrap items-center gap-3 w-full"
+          >
+            <a 
+              href="#services"
+              onClick={(e) => handleNavClick(e, '#services')}
+              className="px-8 py-3.5 text-xs md:text-sm rounded-full bg-white text-black font-bold hover:bg-[#ff2a2a] hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Explore Work
+            </a>
+            
+            <a 
               href="#contact"
-              className="btn-secondary"
-              id="btn-contact-me"
               onClick={(e) => handleNavClick(e, '#contact')}
+              className="px-8 py-3.5 text-xs md:text-sm rounded-full bg-black/40 border border-white/20 text-white font-bold hover:bg-black/60 hover:border-white/50 transition-all duration-300 backdrop-blur-md"
             >
               Contact Me
             </a>
           </div>
         </div>
 
-        {/* ── Right: Image ──────────────────────────── */}
-        <div className="hero-image">
-          {/* Glowing background */}
-          <div className="image-glow" />
-
-          {/* Image Container */}
-          <div className="hero-image-container">
-            <img
-              src="/hero-character.png"
-              alt="Dhana Siri Koppisetti – Developer"
-              className="character-img"
-              id="heroCharacter"
-            />
+        {/* Right Side: Play Video Button */}
+        <div 
+          data-aos="zoom-in"
+          data-aos-delay="500"
+          className="mt-8 md:mt-0 flex flex-row md:flex-col items-center gap-3 cursor-pointer group self-start md:self-auto"
+          onClick={toggleVideo}
+        >
+          <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-white/20 bg-black/30 backdrop-blur-md flex justify-center items-center group-hover:scale-110 group-hover:bg-[#ff2a2a] group-hover:border-transparent transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_40px_rgba(255,42,42,0.5)]">
+            {!isPlaying ? (
+              // Play Icon
+              <svg className="w-5 h-5 md:w-8 md:h-8 text-white ml-0.5 md:ml-1 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            ) : (
+              // Pause Icon
+              <svg className="w-5 h-5 md:w-8 md:h-8 text-white transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            )}
           </div>
+          <span className="text-white text-[10px] md:text-xs font-black tracking-widest uppercase opacity-75 group-hover:opacity-100 transition-opacity">
+            {!isPlaying ? "Play Intro" : "Pause Reel"}
+          </span>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        className="scroll-indicator"
-        id="scrollIndicator"
-        style={{
-          opacity: scrollVisible ? 0.7 : 0,
-          pointerEvents: scrollVisible ? 'auto' : 'none',
-          transition: 'opacity 0.4s ease',
-        }}
+      {/* Downward Bounce Arrow */}
+      <div 
+        data-aos="fade-up"
+        data-aos-delay="600"
+        className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none"
       >
-        <div className="scroll-dot" />
+        <div className="animate-bounce">
+          <svg 
+            className="w-6 h-6 text-white/50" 
+            fill="none" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth="3" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
       </div>
     </section>
   );

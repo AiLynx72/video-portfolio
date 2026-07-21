@@ -1,68 +1,27 @@
-import { useState, useRef, useEffect } from 'react';
-import {
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaGithub,
-  FaLinkedinIn,
-  FaPaperPlane,
-} from 'react-icons/fa';
-
-const iconLinks = [
-  {
-    icon: FaMapMarkerAlt,
-    href: 'https://maps.app.goo.gl/4bVg7kCs2TAEuL159',
-    label: 'Location',
-    target: '_blank',
-  },
-  {
-    icon: FaEnvelope,
-    href: 'mailto:koppisettidhanasiri@gmail.com',
-    label: 'Email',
-    target: '_self',
-  },
-  {
-    icon: FaPhoneAlt,
-    href: 'tel:+919951718354',
-    label: 'Phone',
-    target: '_self',
-  },
-  {
-    icon: FaGithub,
-    href: 'https://github.com/Dhanasirikoppisetti',
-    label: 'GitHub',
-    target: '_blank',
-  },
-  {
-    icon: FaLinkedinIn,
-    href: 'https://www.linkedin.com/in/dhanasiri-koppisetti-655565302/',
-    label: 'LinkedIn',
-    target: '_blank',
-  },
-];
+import React, { useRef, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Contact = () => {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError]     = useState(false);
-  const formRef  = useRef(null);
-  const leftRef  = useRef(null);
-  const rightRef = useRef(null);
+  const [error, setError] = useState(false);
+  const formRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('visible')),
-      { threshold: 0.1 }
-    );
-    if (leftRef.current)  observer.observe(leftRef.current);
-    if (rightRef.current) observer.observe(rightRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax translation for the huge "CONTACT" text
+  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "30%"]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
     setError(false);
+    setSuccess(false);
+
     const formData = new FormData(formRef.current);
     try {
       const res = await fetch('https://formspree.io/f/xqeokjoe', {
@@ -78,7 +37,7 @@ const Contact = () => {
         setError(true);
         setTimeout(() => setError(false), 4000);
       }
-    } catch {
+    } catch (err) {
       setError(true);
       setTimeout(() => setError(false), 4000);
     }
@@ -86,104 +45,134 @@ const Contact = () => {
   };
 
   return (
-    <section className="contact" id="contact">
-      <div className="section-container">
+    <section ref={containerRef} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-white/5 m-0 max-w-full">
+      {/* Huge Background Parallax Text */}
+      <motion.div 
+        style={{ y }}
+        className="absolute top-0 left-0 w-full h-full flex flex-col justify-start items-center overflow-hidden pointer-events-none z-0 pt-16 md:pt-12"
+      >
+        <h1 
+          className="text-[25vw] leading-[0.75] font-black text-white uppercase tracking-tighter select-none scale-y-[1.6] origin-top opacity-5"
+          style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
+        >
+          Contact
+        </h1>
+      </motion.div>
 
-        {/* ── Section Header ── */}
-        <div className="section-header animate-in">
-          <p className="section-tag">GET IN TOUCH</p>
-          <h2 className="section-title">
-            <span className="title-line title-line--left"></span>
-            Contact <span className="highlight">Me</span>
-            <span className="title-line title-line--right"></span>
-          </h2>
-        </div>
+      {/* Form Card Overlay */}
+      <div className="relative z-10 w-full flex justify-end items-end">
+        <div 
+          data-aos="fade-up"
+          className="bg-[#ff2a2a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
+        >
+          <div className="text-xs font-black tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
+            Reach Out
+          </div>
 
-        {/* ── Main Grid ── */}
-        <div className="ct-grid">
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-16 w-full">
+            <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
+              
+              {/* Left Column */}
+              <div className="flex-1 flex flex-col gap-10">
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    name="name"
+                    id="firstName" 
+                    placeholder="Your Name" 
+                    required
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                  />
+                </div>
+                <div className="relative">
+                  <input 
+                    type="email" 
+                    name="email"
+                    id="email" 
+                    placeholder="Email Address" 
+                    required
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                  />
+                </div>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    name="subject"
+                    id="subject" 
+                    placeholder="Subject" 
+                    required
+                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
+                  />
+                </div>
+              </div>
 
-          {/* ── LEFT: Image + icon row ── */}
-          <div className="ct-left animate-in-left" ref={leftRef}>
-            <div className="ct-img-col">
-              <div className="ct-img-wrap">
-                <img
-                  src="/contact_support_girl.png"
-                  alt="Contact illustration"
-                  className="ct-img"
+              {/* Right Column */}
+              <div className="flex-1 flex flex-col">
+                <div className="relative h-full flex flex-col">
+                  <textarea 
+                    name="message"
+                    id="message" 
+                    placeholder="Type your message here" 
+                    required
+                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium resize-none rounded-none"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            {/* Success and Error messages */}
+            {success && (
+              <div className="p-4 rounded-xl bg-green-900/30 border border-green-500/50 text-white font-bold text-sm">
+                ✅ Message sent successfully! I will get back to you soon.
+              </div>
+            )}
+            {error && (
+              <div className="p-4 rounded-xl bg-red-950/30 border border-red-500/50 text-white font-bold text-sm">
+                ❌ Something went wrong. Please try again.
+              </div>
+            )}
+
+            {/* Bottom Actions Row */}
+            <div className="flex flex-col md:flex-row gap-12 mt-4">
+              {/* Permission Checkbox */}
+              <div className="flex-1 flex items-start gap-4 text-xs md:text-sm font-semibold text-white/95">
+                <input 
+                  type="checkbox" 
+                  id="permission" 
+                  required
+                  className="mt-1 w-4 h-4 rounded-sm border-white/40 bg-transparent text-white focus:ring-white focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer" 
+                  style={{ accentColor: "white" }}
                 />
+                <label htmlFor="permission" className="cursor-pointer max-w-[280px] leading-snug">
+                  I give permission to contact me at this email address.
+                </label>
               </div>
 
-              {/* Icon row */}
-              <div className="ct-icon-row">
-                {iconLinks.map(({ icon: Icon, href, label, target }, i) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={target}
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="ct-icon-btn"
-                    style={{ animationDelay: `${i * 0.08}s` }}
+              {/* Right text & button */}
+              <div className="flex-1 flex flex-col gap-8 text-xs text-white/70 font-semibold">
+                <p className="leading-relaxed max-w-[400px]">
+                  This form is protected and messages are dispatched securely to my primary address.
+                </p>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
+                  <p className="max-w-[250px] leading-relaxed">
+                    Direct Email: <a href="mailto:koppisettidhanasiri@gmail.com" className="underline hover:text-white transition-colors font-black">koppisettidhanasiri@gmail.com</a>
+                  </p>
+                  
+                  <button 
+                    type="submit" 
+                    disabled={sending}
+                    className="px-8 py-3 rounded-full border border-white/40 text-white font-black flex items-center justify-center gap-3 hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Icon />
-                  </a>
-                ))}
+                    {sending ? 'Sending...' : 'Send'}
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
+
             </div>
-          </div>
-
-          {/* ── RIGHT: Form ── */}
-          <div className="ct-right animate-in-right" ref={rightRef}>
-            <div className="ct-form-header">
-              <h3 className="ct-form-title">Send a Message</h3>
-              <p className="ct-form-sub">I'll get back to you within 24 hours.</p>
-            </div>
-
-            <form
-              className="ct-form"
-              ref={formRef}
-              onSubmit={handleSubmit}
-              method="POST"
-              action="https://formspree.io/f/xqeokjoe"
-            >
-              <div className="ct-row">
-                <div className="ct-field">
-                  <input type="text"  name="name"    id="ctName"    placeholder=" " required />
-                  <label htmlFor="ctName">Your Name</label>
-                </div>
-                <div className="ct-field">
-                  <input type="email" name="email"   id="ctEmail"   placeholder=" " required />
-                  <label htmlFor="ctEmail">Email Address</label>
-                </div>
-              </div>
-
-              <div className="ct-field">
-                <input type="text" name="subject" id="ctSubject" placeholder=" " required />
-                <label htmlFor="ctSubject">Subject</label>
-              </div>
-
-              <div className="ct-field">
-                <textarea name="message" id="ctMessage" placeholder=" " rows="5" required />
-                <label htmlFor="ctMessage">Your Message</label>
-              </div>
-
-              {success && (
-                <div className="ct-toast ct-success">
-                  ✅ Message Sent Successfully! I'll get back to you soon.
-                </div>
-              )}
-              {error && (
-                <div className="ct-toast ct-error">
-                  ❌ Something went wrong. Please try again.
-                </div>
-              )}
-
-              <button type="submit" className="ct-btn" disabled={sending}>
-                <FaPaperPlane className="ct-btn-icon" />
-                {sending ? 'Sending…' : 'Send Message'}
-              </button>
-            </form>
-          </div>
+          </form>
 
         </div>
       </div>

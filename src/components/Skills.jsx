@@ -1,9 +1,11 @@
+import React from 'react';
+
 const skillsData = [
   {
     id: 'skill-languages',
-    gradient: 'linear-gradient(135deg, #e34f26, #f59e0b)',
+    gradient: 'from-orange-600 to-amber-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
         <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
       </svg>
     ),
@@ -19,9 +21,9 @@ const skillsData = [
   },
   {
     id: 'skill-frontend',
-    gradient: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+    gradient: 'from-blue-600 to-indigo-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
         <rect x="2" y="3" width="20" height="14" rx="2" />
         <path d="M8 21h8M12 17v4" />
       </svg>
@@ -37,9 +39,9 @@ const skillsData = [
   },
   {
     id: 'skill-backend',
-    gradient: 'linear-gradient(135deg, #339933, #68a063)',
+    gradient: 'from-emerald-600 to-green-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
         <path d="M5 12H3l9-9 9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
       </svg>
     ),
@@ -54,9 +56,9 @@ const skillsData = [
   },
   {
     id: 'skill-databases',
-    gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+    gradient: 'from-cyan-600 to-sky-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" width="24" height="24">
         <ellipse cx="12" cy="5" rx="9" ry="3" />
         <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
         <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
@@ -72,9 +74,9 @@ const skillsData = [
   },
   {
     id: 'skill-tools',
-    gradient: 'linear-gradient(135deg, #f05032, #e04b2a)',
+    gradient: 'from-red-600 to-rose-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
@@ -89,9 +91,9 @@ const skillsData = [
   },
   {
     id: 'skill-concepts',
-    gradient: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+    gradient: 'from-purple-600 to-fuchsia-500',
     icon: (
-      <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+      <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
       </svg>
     ),
@@ -107,32 +109,52 @@ const skillsData = [
 ];
 
 const Skills = () => (
-  <section className="skills" id="skills">
-    <div className="section-container">
-      <div className="section-header animate-in">
-        <p className="section-tag">MY SKILLS</p>
-        <h2 className="section-title">
-          <span className="title-line title-line--left"></span>
-          My <span className="highlight">Skills</span>
-          <span className="title-line title-line--right"></span>
+  <section id="skills" className="bg-black py-24 px-6 md:px-12 w-full relative overflow-hidden font-sans m-0 max-w-full border-t border-white/5">
+    <div className="max-w-6xl mx-auto">
+      
+      {/* Header */}
+      <div data-aos="fade-up" className="text-center mb-16">
+        <p className="text-[#ff2a2a] text-sm font-black tracking-widest uppercase mb-3">MY SKILLS</p>
+        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+          Tech <span className="text-transparent [-webkit-text-stroke:1px_white]">Stack</span>
         </h2>
       </div>
 
-      <div className="skills-grid">
-        {skillsData.map((skill) => (
-          <div className="skill-card animate-in" id={skill.id} key={skill.id}>
-            <div className="skill-icon" style={{ background: skill.gradient }}>
-              {skill.icon}
+      {/* Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {skillsData.map((skill, index) => (
+          <div 
+            key={skill.id}
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+            className="bg-[#111] border border-white/5 rounded-3xl p-6 hover:border-[#ff2a2a]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(255,42,42,0.03)] group"
+          >
+            {/* Title / Icon Row */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${skill.gradient} flex items-center justify-center shadow-md`}>
+                {skill.icon}
+              </div>
+              <h3 className="text-xl font-black text-white group-hover:text-[#ff2a2a] transition-colors duration-300">{skill.title}</h3>
             </div>
-            <h3>{skill.title}</h3>
-            <div className="skill-tags">
+
+            {/* Tags wrapper */}
+            <div className="flex flex-wrap gap-2.5">
               {skill.tags.map((tag) => (
-                <span className="stag" key={tag.label}>
-                  <i style={{ background: tag.bg, color: tag.color || '#fff' }}>{tag.short}</i>
+                <span 
+                  key={tag.label}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-bold transition-all duration-200 border border-white/5"
+                >
+                  <i 
+                    className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-black italic not-italic font-mono"
+                    style={{ background: tag.bg, color: tag.color || '#fff' }}
+                  >
+                    {tag.short}
+                  </i>
                   {tag.label}
                 </span>
               ))}
             </div>
+
           </div>
         ))}
       </div>
